@@ -17,14 +17,18 @@ type Book struct {
     Year   int
 }
 
+// SearchAuthorBooks повертає список книг автора, якщо вони є
+func SearchAuthorBooks(a Author, lib map[Author][]Book) ([]Book, bool) {
+    books, exists := lib[a]
+    return books, exists
+}
+
 func main() {
     library := make(map[Author][]Book)
 
-    // Приклад авторів
     author1 := Author{"Тарас Шевченко", 25}
     author2 := Author{"Леся Українка", 15}
 
-    // Додавання книг
     library[author1] = []Book{
         {"Кобзар", author1, 1840},
         {"Гайдамаки", author1, 1841},
@@ -35,19 +39,14 @@ func main() {
         {"Камінний господар", author2, 1912},
     }
 
-    // Пошук книг за автором
-    searchAuthor(author1, library)
-}
-
-// Функція пошуку книг певного автора
-func searchAuthor(a Author, lib map[Author][]Book) {
-    books, exists := lib[a]
-    if exists {
-        fmt.Printf("Книги автора %s:\n", a.Name)
+    // Демонстрація пошуку
+    books, found := SearchAuthorBooks(author1, library)
+    if found {
+        fmt.Printf("Книги автора %s:\n", author1.Name)
         for _, book := range books {
             fmt.Printf("- %s (%d)\n", book.Title, book.Year)
         }
     } else {
-        fmt.Printf("Книг автора %s не знайдено.\n", a.Name)
+        fmt.Printf("Книг автора %s не знайдено.\n", author1.Name)
     }
 }
