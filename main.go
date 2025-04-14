@@ -50,3 +50,6 @@ func main() {
         fmt.Printf("Книг автора %s не знайдено.\n", author1.Name)
     }
 }
+
+
+// lab3
